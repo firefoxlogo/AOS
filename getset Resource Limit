@@ -1,0 +1,34 @@
+22)	Write a C program to get and set the resource limits such as files, memory associated with a process.
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<sys/stat.h>
+#include<sys/types.h>
+#include<sys/wait.h>
+#include<sys/resource.h>
+int main()
+{
+struct rlimit a,b,c;
+getrlimit(RLIMIT_DATA,&a);
+printf("\nrlim_cur=%d",a.rlim_cur);
+printf("\nrlim_max=%d",a.rlim_max);
+b.rlim_cur=10;
+b.rlim_max=1000;
+setrlimit(RLIMIT_DATA,&b);
+getrlimit(RLIMIT_DATA,&c);
+printf("\nrlim_cur=%d",c.rlim_cur);
+printf("\nrlim_max=%d",c.rlim_max);
+printf("\nfilesize=>");
+getrlimit(RLIMIT_STACK,&a);
+printf("\nrlim_cur=%d",a.rlim_cur);
+printf("\nrlim_max=%d",a.rlim_max);
+b.rlim_cur=20;
+b.rlim_max=2000;
+setrlimit(RLIMIT_STACK,&b);
+getrlimit(RLIMIT_STACK,&c);
+printf("\nrlim_cur=%d",c.rlim_cur);
+printf("\nrlim_max=%d",c.rlim_max);
+return 0;
+}
